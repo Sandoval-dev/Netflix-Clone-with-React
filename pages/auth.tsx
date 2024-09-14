@@ -1,8 +1,30 @@
 import Input from '@/components/Input'
+import axios from 'axios'
+import { NextPageContext } from 'next'
+import { getSession, signIn } from 'next-auth/react'
+import { redirect } from 'next/navigation'
 import { useRouter } from 'next/router'
 import React, { useCallback, useState } from 'react'
 import { FaFacebook, FaGithub } from 'react-icons/fa6'
 import { FcGoogle } from 'react-icons/fc'
+
+export async function getServerSideProps(context:NextPageContext){
+    const session=await getSession(context)
+
+    if (session) {
+        return {
+            redirect:{
+                destination: '/',
+                permanent: false,
+            }
+        }
+    }
+
+    return{
+        props: {},
+    }
+}
+ 
 
 const Auth = () => {
 
@@ -20,19 +42,32 @@ const Auth = () => {
 
     const login = useCallback(async () => {
         try {
-           alert("login")
-        } catch (error) {
+           await signIn('credentials',{
+             email,
+             password,
+             redirect:false,
+             callbackUrl:'/'
+           })
 
+           router.push('/profiles')
+        } catch (error) {
+           console.log(error)
         }
-    }, [])
+    }, [email,password,router])
 
     const register = useCallback(async () => {
         try {
-           alert("register")
+           
+            await axios.post('/api/register', {
+                email,
+                name,
+                password
+            })
+            login()
         } catch (error) {
-
+            console.log(error)
         }
-    }, [])
+    }, [email,password,name,login])
     return (
         <div className="relative bg-no-repeat bg-center bg-cover h-full w-full bg-[url('/images/hero.jpg')]">
             <div className='bg-black h-full w-full bg-opacity-45'>
