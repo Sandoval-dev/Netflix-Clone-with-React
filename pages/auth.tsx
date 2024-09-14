@@ -93,15 +93,13 @@ const Auth = () => {
                         }
                         <button onClick={variant==="login" ? login : register} className='bg-red-700 py-3 hover:bg-red-800 transition rounded-md w-full mt-10 text-white'>{variant == "login" ? "Login" : "Sign up"}</button>
                         <div className='flex flex-row items-center gap-4 mt-10 justify-center'>
-                            <div className='bg-white cursor-pointer rounded-full items-center justify-center'>
+                            <div onClick={()=> signIn('google', {callbackUrl:'/profiles'})} className='bg-white cursor-pointer rounded-full items-center justify-center'>
                                 <FcGoogle size={40} />
                             </div>
-                            <div className='bg-white cursor-pointer rounded-full items-center justify-center'>
+                            <div onClick={()=> signIn('github', {callbackUrl:'/profiles'})} className='bg-white cursor-pointer rounded-full items-center justify-center'>
                                 <FaGithub size={40} />
                             </div>
-                            <div className='bg-white text-blue-700 cursor-pointer rounded-full items-center justify-center'>
-                                <FaFacebook size={40} />
-                            </div>
+
                         </div>
                         <p className='text-white font-bold mt-12 text-center'>
                             {variant == "login" ? "First time using Netflix?" :
