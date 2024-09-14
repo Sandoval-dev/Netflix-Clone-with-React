@@ -3,6 +3,7 @@ import styles from "@/styles/Home.module.css";
 import { getSession, signOut } from "next-auth/react";
 import { NextPageContext } from "next";
 import useCurrentUser from "@/hooks/useCurrentUser";
+import Navbar from "@/components/Navbar";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -39,13 +40,7 @@ export default function Home() {
   
   return (
     <>
-      <h1 className="text-3xl text-red-800 font-bold underline">
-        Hello world!
-      </h1>
-      <p className="text-white">
-      {user? `Welcome, ${user.email}!` : null}
-      </p>
-      <button onClick={()=> signOut()} className="w-full text-xl bg-black text-white">Log out</button>
+      <Navbar/>
     </>
   );
 }
