@@ -3,7 +3,7 @@ import useSWR from "swr";
 
 
 const useMovieList = () =>{
-    const{data, error, isValidating, mutate} =useSWR('/api/movies', fetcher, {
+    const{data, error, isValidating, mutate} =useSWR('/api/movie', fetcher, {
         revalidateIfStale: false,
         revalidateOnFocus: false,
         revalidateOnReconnect: false,

@@ -6,6 +6,7 @@ import useCurrentUser from "@/hooks/useCurrentUser";
 import Navbar from "@/components/Navbar";
 import Billboard from "@/components/Billboard";
 import MovieList from "@/components/MovieList";
+import useMovieList from "@/hooks/useMovieList";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -18,33 +19,43 @@ const geistMono = localFont({
   weight: "100 900",
 });
 
-export async function getServerSideProps(context:NextPageContext){
-  const session=await getSession(context)
+export async function getServerSideProps(context: NextPageContext) {
+  const session = await getSession(context)
 
   if (!session) {
-      return {
-          redirect:{
-              destination: '/auth',
-              permanent: false,
-          }
+    return {
+      redirect: {
+        destination: '/auth',
+        permanent: false,
       }
+    }
   }
 
-  return{
-      props: {},
+  return {
+    props: {},
   }
 }
 
 export default function Home() {
 
-  const {data:user}=useCurrentUser()
+  const { data: user } = useCurrentUser()
+  const { data: movies } = useMovieList()
 
-  
+
   return (
     <>
-      <Navbar/>
-      <Billboard/>
-      <MovieList/>
+      <Navbar />
+      <Billboard />
+      <div className="lg:mt-44 sm:mt-10">  </div>
+      <div className="p-6">
+        <MovieList data={movies} title="Trending" />
+      </div>
+      <div className="h-96">
+        
+      </div>
+
+
+
     </>
   );
 }
