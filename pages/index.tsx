@@ -4,6 +4,8 @@ import { getSession, signOut } from "next-auth/react";
 import { NextPageContext } from "next";
 import useCurrentUser from "@/hooks/useCurrentUser";
 import Navbar from "@/components/Navbar";
+import Billboard from "@/components/Billboard";
+import MovieList from "@/components/MovieList";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -41,6 +43,8 @@ export default function Home() {
   return (
     <>
       <Navbar/>
+      <Billboard/>
+      <MovieList/>
     </>
   );
 }

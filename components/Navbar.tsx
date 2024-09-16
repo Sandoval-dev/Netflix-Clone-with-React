@@ -1,5 +1,5 @@
 import { BellAlertIcon, BellIcon, ChevronDownIcon, MagnifyingGlassIcon } from '@heroicons/react/24/solid'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import NavItem from './NavItem'
 import MobileMenu from './MobileMenu'
 import AccountMenu from './AccountMenu'
@@ -9,6 +9,27 @@ const Navbar = () => {
 
     const [mobileMenuItem, setMobileMenu] = useState(false)
     const [accountMenuItem, setAccountMenuItem] = useState(false)
+
+    const [showBack, setShowBack] = useState(false)
+    const topOffset=55
+
+    useEffect(()=> {
+        const handleScroll = () => {
+            if (window.scrollY>=topOffset) {
+                setShowBack(true)
+            }
+            else{
+                setShowBack(false)
+            }
+            
+        }
+        window.addEventListener('scroll', handleScroll)
+
+        return() => {
+            window.removeEventListener('scroll', handleScroll)
+        }
+       
+    }, [])
 
 
     const toggleMobileMenu = () => {
@@ -20,7 +41,7 @@ const Navbar = () => {
     }
     return (
         <nav className='w-full fixed z-20'>
-            <div className='px-4 py-6 flex flex-row transition'>
+            <div className={`px-4 py-6 flex flex-row transition ${showBack ? 'bg-zinc-950 bg-opacity-95' : ''}`}>
                 <img className='lg:h-8 h-6' src='/images/logo.png' />
                 <div className='flex-row lg:flex hidden ml-12 gap-5'>
                     <NavItem name='Home' active></NavItem>
