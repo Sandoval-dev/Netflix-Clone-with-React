@@ -7,6 +7,7 @@ import Navbar from "@/components/Navbar";
 import Billboard from "@/components/Billboard";
 import MovieList from "@/components/MovieList";
 import useMovieList from "@/hooks/useMovieList";
+import useFavoriteMovie from "@/hooks/useFavorites";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -40,6 +41,7 @@ export default function Home() {
 
   const { data: user } = useCurrentUser()
   const { data: movies } = useMovieList()
+  const {data: favoriteMovies}=useFavoriteMovie()
 
 
   return (
@@ -49,9 +51,10 @@ export default function Home() {
       <div className="lg:mt-44 sm:mt-10">  </div>
       <div className="p-6">
         <MovieList data={movies} title="Trending" />
+        <MovieList data={favoriteMovies} title="Favorites" />
       </div>
       <div className="h-96">
-        
+
       </div>
 
 
