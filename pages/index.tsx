@@ -8,6 +8,8 @@ import Billboard from "@/components/Billboard";
 import MovieList from "@/components/MovieList";
 import useMovieList from "@/hooks/useMovieList";
 import useFavoriteMovie from "@/hooks/useFavorites";
+import useInfoModalStore from "@/hooks/useInfoModalStore";
+import InfoModal from "@/components/InfoModal";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -42,10 +44,12 @@ export default function Home() {
   const { data: user } = useCurrentUser()
   const { data: movies } = useMovieList()
   const {data: favoriteMovies}=useFavoriteMovie()
+  const {isOpen, closeModal} = useInfoModalStore()
 
 
   return (
     <>
+    <InfoModal visible={isOpen} onClose={closeModal}></InfoModal>
       <Navbar />
       <Billboard />
       <div className="lg:mt-44 sm:mt-10">  </div>

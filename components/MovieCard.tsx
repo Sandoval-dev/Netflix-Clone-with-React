@@ -3,6 +3,7 @@ import React, { useCallback } from 'react'
 import { PlayIcon, ChevronDownIcon } from '@heroicons/react/24/solid'
 import FavoriteButton from './FavoriteButton'
 import { useRouter } from 'next/router'
+import useInfoModalStore from '@/hooks/useInfoModalStore'
 
 
 interface MovieCardProps {
@@ -12,6 +13,9 @@ interface MovieCardProps {
 const MovieCard = ({ data }: MovieCardProps) => {
 
     const router = useRouter()
+    const {openModal}=useInfoModalStore()
+
+
     const redirectToWatch = useCallback(() =>
         router.push(`/watch/${data.id}`), [router, data.id])
     return (
@@ -38,7 +42,7 @@ const MovieCard = ({ data }: MovieCardProps) => {
                         <div>
                             <FavoriteButton movieId={data.id} />
                         </div>
-                        <div className='ml-auto flex items-center justify-center rounded-full 
+                        <div onClick={()=>openModal(data?.id)} className='ml-auto flex items-center justify-center rounded-full 
                            w-7 h-7 lg:w-11 lg:h-11
                            transition 
                            border-2
